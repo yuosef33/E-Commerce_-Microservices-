@@ -1,7 +1,7 @@
 package com.yuosef.ecommerce.Services;
 
-import com.yuosef.ecommerce.Models.Customer;
-import com.yuosef.ecommerce.Models.CustomerRespnse;
+import com.yuosef.ecommerce.product.Customer;
+import com.yuosef.ecommerce.product.CustomerRespnse;
 import org.springframework.stereotype.Service;
 
 @Service

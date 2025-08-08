@@ -1,9 +1,9 @@
 package com.yuosef.ecommerce.Services;
 
 import com.yuosef.ecommerce.Dao.CustomerDao;
-import com.yuosef.ecommerce.Models.Customer;
-import com.yuosef.ecommerce.Models.CustomerRequest;
-import com.yuosef.ecommerce.Models.CustomerRespnse;
+import com.yuosef.ecommerce.product.Customer;
+import com.yuosef.ecommerce.product.CustomerRequest;
+import com.yuosef.ecommerce.product.CustomerRespnse;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,4 @@
-package com.yuosef.ecommerce.Models;
-
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
+package com.yuosef.ecommerce.product;
 
 public record CustomerRespnse(
         String id,

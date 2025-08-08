@@ -1,7 +1,7 @@
 package com.yuosef.ecommerce.Controller;
 
-import com.yuosef.ecommerce.Models.CustomerRequest;
-import com.yuosef.ecommerce.Models.CustomerRespnse;
+import com.yuosef.ecommerce.product.CustomerRequest;
+import com.yuosef.ecommerce.product.CustomerRespnse;
 import com.yuosef.ecommerce.Services.CustomerService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;

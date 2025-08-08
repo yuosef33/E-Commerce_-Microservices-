@@ -1,4 +1,4 @@
-package com.yuosef.ecommerce.Models;
+package com.yuosef.ecommerce.product;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
