@@ -27,9 +27,9 @@ public class ProductController {
         return ResponseEntity.ok(service.createProduct(request));
     }
 
-    @PostMapping("/")
+    @PostMapping("/purchase/")
     public ResponseEntity<List<ProductPurchaseResponse>> purchaseProducts(
-            @RequestBody List<ProductPurchaseRequest> requestList
+            @RequestBody @Valid List<ProductPurchaseRequest> requestList
     )
     {
         return ResponseEntity.ok(service.purchaseProducts(requestList));
@@ -41,7 +41,7 @@ public class ProductController {
 
         return ResponseEntity.ok(service.findById(productId));
     }
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<List<ProductResponse>> findAll(){
         return ResponseEntity.ok(service.findAll());
     }

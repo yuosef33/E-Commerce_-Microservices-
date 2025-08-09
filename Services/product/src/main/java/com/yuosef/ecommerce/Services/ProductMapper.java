@@ -2,6 +2,7 @@ package com.yuosef.ecommerce.Services;
 
 import com.yuosef.ecommerce.category.Category;
 import com.yuosef.ecommerce.product.Product;
+import com.yuosef.ecommerce.product.ProductPurchaseResponse;
 import com.yuosef.ecommerce.product.ProductRequest;
 import com.yuosef.ecommerce.product.ProductResponse;
 import org.springframework.stereotype.Service;
@@ -32,4 +33,13 @@ public class ProductMapper {
     }
 
 
+    public ProductPurchaseResponse toProductpurchaseResponse(Product product, double quantity) {
+        return new ProductPurchaseResponse(
+                product.getId(),
+                product.getName(),
+                product.getDescription(),
+                product.getPrice(),
+                quantity
+        );
+    }
 }

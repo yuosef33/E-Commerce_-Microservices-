@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,7 +26,33 @@ public class ProductService {
     }
 
     public List<ProductPurchaseResponse> purchaseProducts(List<ProductPurchaseRequest> requestList) {
-    return null;
+        var productIds=requestList
+                .stream()
+                .map(ProductPurchaseRequest::productId)
+                .toList();
+        var storedProducts = repo.findAllByIdInOrderById(productIds);
+        if (productIds.size() != storedProducts.size()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"One or more products does not exits");
+
+        }
+        var storedRequest =requestList.stream()
+                .sorted(Comparator.comparing(ProductPurchaseRequest::productId))
+                .toList();
+        var purchaseProducts = new ArrayList<ProductPurchaseResponse>();
+        for(int i=0;i<storedProducts.size();i++){
+            var product = storedProducts.get(i);
+            var productRequest = storedRequest.get(i);
+            if(product.getQuantity()< productRequest.quantity()){
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND,"stock quantity for product with id :"+ productRequest.productId());
+            }
+            var newavailableQuantity= product.getQuantity()-productRequest.quantity();
+            product.setQuantity(newavailableQuantity);
+            repo.save(product);
+            purchaseProducts.add(mapper.toProductpurchaseResponse(product,productRequest.quantity()));
+
+        }
+        return purchaseProducts;
+
     }
 
     public ProductResponse findById(Integer productId) {
