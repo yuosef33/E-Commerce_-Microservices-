@@ -39,6 +39,18 @@ public class Order {
     public Order() {
     }
 
+    public Order(Integer id) {
+        this.id = id;
+    }
+
+    public Order(Integer id, String reference, BigDecimal totalAmount, PaymentMethod paymentMethod, String customerId) {
+        this.id = id;
+        this.reference = reference;
+        this.totalAmount = totalAmount;
+        this.paymentMethod = paymentMethod;
+        this.customerId = customerId;
+    }
+
     public Order(Integer id, String reference, BigDecimal totalAmount, PaymentMethod paymentMethod, String customerId, List<OrderLine> orderLines, LocalDateTime createdAt, LocalDateTime lastModifiedDate) {
         this.id = id;
         this.reference = reference;
