@@ -8,6 +8,8 @@ import com.yuosef.ecommerce.Daos.OrderDao;
 import com.yuosef.ecommerce.Models.OrderRequest;
 import com.yuosef.ecommerce.Models.OrderResponse;
 import com.yuosef.ecommerce.Models.PurchaseRequest;
+import com.yuosef.ecommerce.Payment.PaymentClient;
+import com.yuosef.ecommerce.Payment.PaymentRequest;
 import com.yuosef.ecommerce.Product.ProductClient;
 import com.yuosef.ecommerce.orderline.OrderLineRequest;
 import org.springframework.http.HttpStatus;
@@ -26,13 +28,15 @@ public class OrderService {
         private final ProductClient productClient;
         private final OrderLineService orderLineService;
         private final OrderProducer orderProducer;
-    public OrderService(OrderDao repo, CustomerClient customerClientclient, OrderMapper mapper, ProductClient productClient, OrderLineService orderLineService, OrderProducer orderProducer) {
+        private final PaymentClient paymentClient;
+    public OrderService(OrderDao repo, CustomerClient customerClientclient, OrderMapper mapper, ProductClient productClient, OrderLineService orderLineService, OrderProducer orderProducer, PaymentClient paymentClient) {
         this.repo = repo;
         this.customerClientclient = customerClientclient;
         this.mapper = mapper;
         this.productClient = productClient;
         this.orderLineService = orderLineService;
         this.orderProducer = orderProducer;
+        this.paymentClient = paymentClient;
     }
 
     public Integer createOrder(OrderRequest orderRequest) {
@@ -54,8 +58,14 @@ public class OrderService {
                     )
             );
          }
-
-            // todo start payment process
+            var paymentRequest=new PaymentRequest(
+              orderRequest.amount(),
+              orderRequest.paymentMethod(),
+              order.getId(),
+              order.getReference(),
+              customer
+            );
+       paymentClient.requestOrderPayment(paymentRequest);
             orderProducer.sendOrderConfirmation(
                     new OrderConfirmation(
                             orderRequest.reference(),
