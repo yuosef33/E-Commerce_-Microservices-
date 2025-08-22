@@ -1,0 +1,38 @@
+
+server:
+  port: 8222
+
+  cloud:
+    discovery:
+      locator:
+        enabled: true
+        lower-case-service-id: true
+    gateway:
+      server:
+        webmvc:
+          # If you still want to define routes manually:
+          routes:
+            - id: customer-service
+              uri: lb://customer-service
+              predicates:
+                - Path=/api/v1/customers/**
+
+            - id: order-service
+              uri: lb://order-service
+              predicates:
+                - Path=/api/v1/orders/**
+
+            - id: order-lines-service
+              uri: lb://order-service
+              predicates:
+                - Path=/api/v1/order-lines/**
+            - id: product-service
+              uri: lb://product-service
+              predicates:
+                - Path=/api/v1/products/**
+            - id: payment-service
+              uri: lb://payment-service
+              predicates:
+                - Path=/api/v1/payments/**
+
+
